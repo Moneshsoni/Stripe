@@ -1,0 +1,40 @@
+<div id="<%= dom_id article %>">
+  
+  <div>
+    <strong>Uploded by:</strong>
+    <%if user_signed_in?%>
+      <%= current_user.email%>
+    <%end%>
+  </div>
+  
+  <hr>
+  <div>
+    <% if article.thumbnail.attached?%>
+      <%= image_tag article.thumbnail.variant(:thumb)%>
+    <%end%>
+  </div>
+
+
+  <p>
+    <strong>Title:</strong>
+    <%= article.title %>
+  </p>
+
+  <p>
+    <strong>Content:</strong>
+    <%= article.content %>
+  </p>
+
+  <div>
+    <%if article.file.attached?%>
+      <%if article.file.video?%>
+        <%= video_tag url_for(article.file), controls: ''%>
+        <%elsif article.file.previewable?%>
+          <div style = 'height: 400px; width:400px'>
+            <% image_tag article.file.preview(resize_to_fit: [400,400])%>
+          </div>
+        <%end%>
+    <%end%>
+  </div>
+
+</div>
